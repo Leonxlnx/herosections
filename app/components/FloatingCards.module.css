@@ -1,0 +1,90 @@
+.container {
+    position: relative;
+    height: 500px;
+}
+
+.card {
+    position: absolute;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: box-shadow 0.5s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.card span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.cardPreview {
+    width: 180px;
+    height: 120px;
+    border-radius: 10px;
+}
+
+/* Card positions */
+.card1 {
+    top: 5%;
+    left: 10%;
+}
+
+.card2 {
+    top: 15%;
+    right: 5%;
+}
+
+.card3 {
+    bottom: 25%;
+    left: 5%;
+}
+
+.card4 {
+    bottom: 10%;
+    right: 15%;
+}
+
+/* Preview gradients */
+.preview1 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.preview2 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.preview3 {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.preview4 {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        height: 350px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .card {
+        transform: scale(0.85);
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        display: none;
+    }
+}

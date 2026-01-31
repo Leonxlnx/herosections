@@ -1,39 +1,62 @@
 # 🚀 Hero Sections Collection
 
-A curated collection of stunning, modern hero sections ready to copy and use in your projects.
+A curated collection of stunning, modern hero sections built with **Next.js**, **TypeScript**, **GSAP**, and ready for **Three.js** & **Paper.js** effects.
 
 ## ✨ Features
 
-- **Beautiful Designs** - Each hero section is crafted with attention to detail
-- **Fully Responsive** - Works perfectly on all screen sizes
-- **Easy to Use** - Simply copy the code and customize
-- **Open Source** - Free to use in personal and commercial projects
+- **Next.js 15** - App Router with TypeScript
+- **GSAP Animations** - Smooth, performant animations with ScrollTrigger
+- **Three.js Ready** - @react-three/fiber & @react-three/drei installed
+- **Paper.js Ready** - For canvas-based vector graphics
+- **Vercel Deployment** - One-click deploy ready
 
-## 📁 Structure
+## 📦 Tech Stack
+
+- Next.js 15 (App Router)
+- TypeScript
+- GSAP + ScrollTrigger
+- Three.js (@react-three/fiber, @react-three/drei)
+- Paper.js
+- CSS Modules
+
+## 🛠️ Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 📁 Project Structure
 
 ```
 herosections/
-├── index.html          # Showcase page
-├── styles.css          # Main styles
-├── script.js           # Interactive features
-├── heroes/             # Individual hero sections (coming soon)
-│   ├── hero-01/
-│   ├── hero-02/
-│   └── ...
-└── README.md
+├── app/
+│   ├── components/    # Shared components
+│   ├── heroes/        # Individual hero sections (coming soon)
+│   ├── globals.css    # Design tokens & utilities
+│   ├── layout.tsx     # Root layout
+│   └── page.tsx       # Showcase page
+├── public/            # Static assets
+└── package.json
 ```
 
-## 🎯 Coming Soon
+## 🎯 Roadmap
 
-Hero sections are being crafted! Check back soon or star this repo to get notified.
+Hero sections are being crafted! Each will include:
+- Full source code
+- Live preview
+- Animation breakdowns
+- Customization options
 
-## 🛠️ Usage
+## 🚀 Deploy
 
-1. Browse the collection
-2. Click on a hero section you like
-3. Copy the code
-4. Customize to fit your brand
-5. Ship! 🚀
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Leonxlnx/herosections)
 
 ## 📄 License
 
