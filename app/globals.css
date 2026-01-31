@@ -1,26 +1,29 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   HERO SECTIONS COLLECTION - SOFT UI DESIGN SYSTEM
-   Black & White with Subtle Gradients
+   HERO SECTIONS COLLECTION - PREMIUM SOFT UI
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   CSS VARIABLES & DESIGN TOKENS
-   ───────────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Soft UI Colors */
-  --bg-primary: #f8f9fa;
-  --bg-secondary: #f0f1f3;
-  --bg-tertiary: #e8e9eb;
-  --bg-card: #fff;
+  /* Premium Soft UI Colors */
+  --bg-primary: #f4f5f7;
+  --bg-secondary: #eceef1;
+  --bg-tertiary: #e4e6ea;
+  --bg-card: rgba(255, 255, 255, 0.9);
 
-  /* Soft UI Shadows */
-  --shadow-soft-light: -6px -6px 14px rgba(255, 255, 255, 0.7);
-  --shadow-soft-dark: 6px 6px 14px rgba(0, 0, 0, 0.05);
+  /* Premium Shadows - Reversed (light from bottom) */
+  --shadow-soft-light: 6px 6px 16px rgba(255, 255, 255, 0.85);
+  --shadow-soft-dark: -6px -6px 16px rgba(0, 0, 0, 0.04);
   --shadow-soft: var(--shadow-soft-light), var(--shadow-soft-dark);
 
-  --shadow-soft-inset-light: inset -3px -3px 7px rgba(255, 255, 255, 0.8);
-  --shadow-soft-inset-dark: inset 3px 3px 7px rgba(0, 0, 0, 0.04);
+  --shadow-soft-inset-light: inset 3px 3px 8px rgba(255, 255, 255, 0.7);
+  --shadow-soft-inset-dark: inset -3px -3px 8px rgba(0, 0, 0, 0.035);
   --shadow-soft-inset: var(--shadow-soft-inset-light), var(--shadow-soft-inset-dark);
+
+  /* Premium Card Shadow */
+  --shadow-card:
+    0 20px 40px -15px rgba(0, 0, 0, 0.06),
+    0 8px 16px -8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.015);
 
   /* Text Colors */
   --text-primary: #111;
@@ -28,24 +31,22 @@
   --text-muted: #888;
 
   /* Borders */
-  --border-subtle: rgba(0, 0, 0, 0.04);
-  --border-light: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.5);
+  --border-light: rgba(0, 0, 0, 0.06);
 
   /* Typography */
   --font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Spacing */
-  --section-padding: clamp(4rem, 10vw, 8rem);
-  --container-max: 1000px;
+  --section-padding: clamp(4rem, 10vw, 7rem);
+  --container-max: 900px;
 
   /* Animation */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   RESET & BASE
-   ───────────────────────────────────────────────────────────────────────────── */
+/* Reset & Base */
 *,
 *::before,
 *::after {
@@ -73,58 +74,11 @@ a {
   text-decoration: none;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   SOFT UI UTILITIES
-   ───────────────────────────────────────────────────────────────────────────── */
+/* Premium Soft UI Card Utility */
 .soft-card {
   background: var(--bg-card);
+  backdrop-filter: blur(20px);
   border-radius: 20px;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-card);
   border: 1px solid var(--border-subtle);
-}
-
-.soft-card-inset {
-  background: var(--bg-secondary);
-  border-radius: 16px;
-  box-shadow: var(--shadow-soft-inset);
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   BUTTON STYLES
-   ───────────────────────────────────────────────────────────────────────────── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s var(--ease-out-quart);
-  cursor: pointer;
-  border: none;
-}
-
-.btn-primary {
-  background: #111;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.btn-soft {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-soft);
-}
-
-.btn-soft:hover {
-  box-shadow:
-    -8px -8px 18px rgba(255, 255, 255, 0.8),
-    8px 8px 18px rgba(0, 0, 0, 0.06);
 }

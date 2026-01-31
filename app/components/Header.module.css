@@ -1,29 +1,37 @@
 .header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem clamp(1.5rem, 5vw, 3rem);
-    background: var(--bg-primary);
-    box-shadow: 0 1px 0 var(--border-subtle);
+    padding: 0.75rem 1.5rem;
+    width: calc(100% - 3rem);
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.04),
+        0 1px 2px rgba(0, 0, 0, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-decoration: none;
 }
 
 .logoIcon {
     color: #111;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .logoText {
@@ -33,56 +41,72 @@
 .nav {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .navLink {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    transition: color 0.2s ease;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 .navLink:hover {
     color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .githubLink {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.85rem;
-    background: var(--bg-card);
+    gap: 0.4rem;
+    padding: 0.45rem 0.75rem;
+    background: rgba(0, 0, 0, 0.04);
     border-radius: 10px;
-    box-shadow: var(--shadow-soft);
     color: var(--text-primary);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
 .githubLink:hover {
-    box-shadow:
-        -8px -8px 16px rgba(255, 255, 255, 0.8),
-        8px 8px 16px rgba(0, 0, 0, 0.06);
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.04);
 }
 
 .githubIcon {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 }
 
 .starCount {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.2rem;
     color: var(--text-secondary);
+    font-size: 0.8rem;
 }
 
 .starIcon {
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     color: #f59e0b;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .header {
+        top: 0.75rem;
+        width: calc(100% - 1.5rem);
+        padding: 0.6rem 1rem;
+    }
+
+    .navLink {
+        display: none;
+    }
 }
