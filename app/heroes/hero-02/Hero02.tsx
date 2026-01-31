@@ -112,7 +112,7 @@ export default function Hero02() {
 
                     <div className={styles.actions}>
                         <button className={styles.primaryBtn}>
-                            Explore Work
+                            Code Coming Soon
                         </button>
                         <button className={styles.secondaryBtn}>
                             Our Process
