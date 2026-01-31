@@ -3,10 +3,9 @@
     min-height: 100vh;
     width: 100%;
     background: #020202;
-    /* Deepest black */
     color: #fff;
     overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
     display: flex;
     flex-direction: column;
 }
@@ -17,13 +16,11 @@
     inset: 0;
     z-index: 0;
     opacity: 0.8;
-    /* Higher opacity for the liquid detail */
 }
 
 .bgImage {
     object-fit: cover;
     filter: contrast(1.1) brightness(0.9);
-    /* Cleaner, less dull */
 }
 
 .vignette {
@@ -53,6 +50,11 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     color: #fff;
+    transition: opacity 0.3s ease;
+}
+
+.brand:hover {
+    opacity: 0.7;
 }
 
 .navRight {
@@ -66,11 +68,12 @@
     font-weight: 500;
     color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .navRight a:hover {
     color: #fff;
+    transform: translateY(-1px);
 }
 
 .navCta {
@@ -80,16 +83,16 @@
     color: #fff !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
-    /* Capsule */
     font-weight: 500 !important;
     font-size: 0.9rem !important;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .navCta:hover {
     background: #fff;
     color: #000 !important;
     border-color: #fff;
+    transform: scale(1.05);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -106,7 +109,6 @@
     gap: 4rem;
     padding: 0 2rem;
     padding-bottom: 8vh;
-    /* Push content higher */
     position: relative;
     z-index: 10;
     height: 100%;
@@ -126,22 +128,37 @@
     line-height: 1.05;
     letter-spacing: -0.04em;
     margin-bottom: 2rem;
-    color: #fff;
 }
 
+/* Gradient applied to line wrapper (not split spans) */
 .lineMask {
     display: block;
+    background: linear-gradient(135deg, #fff 0%, #b0b0b0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: opacity 0.3s ease;
+}
+
+.lineMask:hover {
+    opacity: 0.8;
 }
 
 .lineMask span {
     display: block;
 }
 
+/* Third line slightly dimmer */
+.lineMask:last-child {
+    background: linear-gradient(135deg, #888 0%, #555 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
 .description {
     font-size: 1.125rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.7);
-    /* Slightly brighter */
     max-width: 500px;
     margin-bottom: 3rem;
     font-weight: 400;
@@ -159,7 +176,6 @@
     color: #000;
     border: none;
     border-radius: 100px;
-    /* Liquid capsule */
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -167,8 +183,8 @@
 }
 
 .primaryBtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
 }
 
 .secondaryBtn {
@@ -177,16 +193,16 @@
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 100px;
-    /* Liquid capsule */
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .secondaryBtn:hover {
     background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
 }
 
 /* Right Visual */
@@ -201,13 +217,11 @@
     width: 100%;
     max-width: 380px;
     padding: 3rem 2.5rem;
-    /* Ultra-premium liquid glass */
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(24px) saturate(120%);
     -webkit-backdrop-filter: blur(24px) saturate(120%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 40px;
-    /* Softer, more organic corners */
     box-shadow:
         0 20px 40px -10px rgba(0, 0, 0, 0.5),
         inset 0 0 20px rgba(255, 255, 255, 0.02);
@@ -216,6 +230,14 @@
     justify-content: space-between;
     position: relative;
     overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.glassCard:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        inset 0 0 20px rgba(255, 255, 255, 0.03);
 }
 
 /* Inner liquid highlights */
@@ -247,9 +269,14 @@
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     border-radius: 16px;
-    /* Soft square */
     font-size: 1.1rem;
     backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.cardIcon:hover {
+    transform: scale(1.1) rotate(5deg);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .cardLabel {
@@ -333,9 +360,14 @@
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     border: 3px solid #0d0d0d;
-    /* Matching bg check? close enough */
     margin-left: -10px;
     overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.15);
+    z-index: 10;
 }
 
 .avatar:first-child {
@@ -361,6 +393,10 @@
     .contentCol {
         align-items: center;
         text-align: center;
+    }
+
+    .lineMask {
+        display: inline-block;
     }
 
     .visualCol {
