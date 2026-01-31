@@ -105,6 +105,8 @@
     align-items: center;
     gap: 4rem;
     padding: 0 2rem;
+    padding-bottom: 8vh;
+    /* Push content higher */
     position: relative;
     z-index: 10;
     height: 100%;
