@@ -9,7 +9,6 @@ import styles from "./HeroGrid.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Hero sections data with preview images
 const heroes = [
     {
         id: 1,
@@ -53,15 +52,15 @@ export default function HeroGrid() {
     useEffect(() => {
         gsap.fromTo(
             headerRef.current,
-            { y: 25, opacity: 0 },
+            { y: 40, opacity: 0 },
             {
                 y: 0,
                 opacity: 1,
-                duration: 0.8,
+                duration: 1,
                 ease: "expo.out",
                 scrollTrigger: {
                     trigger: sectionRef.current,
-                    start: "top 85%",
+                    start: "top 80%",
                 },
             }
         );
@@ -70,16 +69,16 @@ export default function HeroGrid() {
             if (card) {
                 gsap.fromTo(
                     card,
-                    { y: 30, opacity: 0 },
+                    { y: 50, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 0.7,
+                        duration: 0.9,
                         ease: "expo.out",
                         delay: index * 0.1,
                         scrollTrigger: {
                             trigger: card,
-                            start: "top 90%",
+                            start: "top 88%",
                         },
                     }
                 );
