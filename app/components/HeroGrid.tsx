@@ -20,11 +20,11 @@ const heroes = [
     },
     {
         id: 2,
-        name: "Hero #2",
-        description: "Coming soon — stay tuned for more stunning hero sections.",
+        name: "Nexus Dark",
+        description: "Premium dark mode hero with geometric background, bold typography, and smooth animations.",
         slug: "hero-02",
-        status: "coming-soon",
-        preview: null,
+        status: "ready",
+        preview: "/hero2bg.png",
     },
     {
         id: 3,
