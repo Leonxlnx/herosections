@@ -20,8 +20,8 @@ const heroes = [
     },
     {
         id: 2,
-        name: "Flocky",
-        description: "Premium asymmetrical dark mode hero with creative capsule navigation and liquid monochrome visuals.",
+        name: "Flocky 3D",
+        description: "Ultra-premium dark mode hero with real-time R3F 3D visuals, floating dock navigation, and cinematic typography.",
         slug: "hero-02",
         status: "ready",
         preview: "/hero2bg.png",

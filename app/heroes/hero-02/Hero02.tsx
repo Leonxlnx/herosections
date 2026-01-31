@@ -1,167 +1,144 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import gsap from "gsap";
-import Image from "next/image";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, Environment, ContactShadows } from "@react-three/drei";
 import styles from "./Hero02.module.css";
+// import * as THREE from 'three'; // Not strictly needed unless using THREE directly
+
+function AbstractShape() {
+    const meshRef = useRef<any>(null);
+
+    useFrame((state) => {
+        if (!meshRef.current) return;
+        const t = state.clock.getElapsedTime();
+        meshRef.current.rotation.x = Math.cos(t / 4) / 2;
+        meshRef.current.rotation.y = Math.sin(t / 4) / 2;
+        meshRef.current.rotation.z = (1 + Math.sin(t / 1.5)) / 20;
+        meshRef.current.position.y = (1 + Math.sin(t / 1.5)) / 10;
+    });
+
+    return (
+        <mesh ref={meshRef}>
+            <torusKnotGeometry args={[1, 0.3, 128, 16]} />
+            <meshStandardMaterial
+                color="#e0e0e0"
+                roughness={0.1}
+                metalness={0.9}
+                emissive="#111"
+                emissiveIntensity={0.1}
+            />
+        </mesh>
+    );
+}
 
 export default function Hero02() {
     const containerRef = useRef<HTMLElement>(null);
+    const title1Ref = useRef<HTMLSpanElement>(null);
+    const title2Ref = useRef<HTMLSpanElement>(null);
+    const title3Ref = useRef<HTMLSpanElement>(null);
     const navRef = useRef<HTMLElement>(null);
-    const titleRef = useRef<HTMLHeadingElement>(null);
-    const visualsRef = useRef<HTMLDivElement>(null);
-    const ctaRef = useRef<HTMLDivElement>(null);
-    const statsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-        // Initial State Set
-        gsap.set(navRef.current, { y: -20, opacity: 0 });
-        gsap.set(visualsRef.current, { scale: 0.95, opacity: 0 });
-
-        tl.to(navRef.current, { y: 0, opacity: 1, duration: 1, ease: "expo.out" })
+        // Title Stagger
+        tl.fromTo(
+            [title1Ref.current, title2Ref.current, title3Ref.current],
+            { y: 150, rotateX: -30, opacity: 0 },
+            { y: 0, rotateX: 0, opacity: 1, duration: 1.8, stagger: 0.15 }
+        )
             .fromTo(
-                titleRef.current?.querySelectorAll(".word"),
-                { y: 100, rotateX: -20, opacity: 0 },
-                {
-                    y: 0,
-                    rotateX: 0,
-                    opacity: 1,
-                    duration: 1.2,
-                    stagger: 0.05,
-                    ease: "expo.out",
-                },
-                "-=0.6"
-            )
-            .to(
-                visualsRef.current,
-                { scale: 1, opacity: 1, duration: 1.4, ease: "expo.out" },
-                "-=1"
-            )
-            .fromTo(
-                ctaRef.current?.children || [],
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
-                "-=0.8"
-            )
-            .fromTo(
-                statsRef.current?.children || [],
-                { x: -20, opacity: 0 },
-                { x: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
-                "-=0.6"
+                navRef.current,
+                { y: 40, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1.2 },
+                "-=1.2"
             );
-
-        // Subtle parallax for visuals
-        const handleMouseMove = (e: MouseEvent) => {
-            if (!visualsRef.current) return;
-            const { clientX, clientY } = e;
-            const xPos = (clientX / window.innerWidth - 0.5) * 20;
-            const yPos = (clientY / window.innerHeight - 0.5) * 20;
-
-            gsap.to(visualsRef.current, {
-                x: xPos,
-                y: yPos,
-                duration: 1.5,
-                ease: "power2.out",
-            });
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
     return (
         <section ref={containerRef} className={styles.hero}>
-            {/* Floating Capsule Nav */}
-            <nav ref={navRef} className={styles.navCapsule}>
-                <div className={styles.navLogo}>Flocky</div>
-                <div className={styles.navLinks}>
-                    <a href="#">Work</a>
-                    <a href="#">Studio</a>
-                    <a href="#">Cart</a>
-                </div>
-                <a href="#" className={styles.navMenuBtn}>
-                    <div className={styles.menuDot}></div>
-                    <div className={styles.menuDot}></div>
-                </a>
-            </nav>
+            <div className={styles.grid}></div>
+            <div className={styles.vignette}></div>
 
-            <div className={styles.contentWrapper}>
-                {/* Left: Typography & Action */}
-                <div className={styles.leftColumn}>
-                    <h1 ref={titleRef} className={styles.title}>
-                        <div className={styles.line}>
-                            <span className="word">Design</span>
-                            <span className="word">with</span>
-                        </div>
-                        <div className={styles.line}>
-                            <span className="word">absolute</span>
-                        </div>
-                        <div className={styles.line}>
-                            <span className="word" style={{ color: "rgba(255,255,255,0.5)" }}>
-                                precision.
+            {/* Main Layout */}
+            <div className={styles.content}>
+                {/* Left: Typography */}
+                <div className={styles.left}>
+                    <div className={styles.badge}>
+                        <span className={styles.badgeDot}></span>
+                        <span>Flocky 2.0</span>
+                    </div>
+
+                    <h1 className={styles.title}>
+                        <span className={styles.line}>
+                            <span ref={title1Ref} className={styles.word}>Pure</span>
+                        </span>
+                        <span className={styles.line}>
+                            <span ref={title2Ref} className={styles.word}>Digital</span>
+                        </span>
+                        <span className={styles.line}>
+                            <span ref={title3Ref} className={styles.word} style={{ color: "#888" }}>
+                                Form.
                             </span>
-                        </div>
+                        </span>
                     </h1>
 
-                    <div ref={ctaRef} className={styles.ctaGroup}>
-                        <a href="#" className={styles.primaryBtn}>
-                            <span className={styles.btnText}>Start Project</span>
-                            <span className={styles.btnIcon}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </span>
-                        </a>
-                        <div className={styles.divider}></div>
-                        <a href="#" className={styles.secondaryBtn}>
-                            Showcase (24)
-                        </a>
-                    </div>
-
-                    <div ref={statsRef} className={styles.statsRow}>
-                        <div className={styles.statItem}>
-                            <span className={styles.statNum}>01</span>
-                            <span className={styles.statLabel}>Concept</span>
-                        </div>
-                        <div className={styles.statItem}>
-                            <span className={styles.statNum}>02</span>
-                            <span className={styles.statLabel}>Build</span>
-                        </div>
-                        <div className={styles.statItem}>
-                            <span className={styles.statNum}>03</span>
-                            <span className={styles.statLabel}>Ship</span>
-                        </div>
+                    <div className={styles.ctaGroup}>
+                        <button className={styles.primaryBtn}>
+                            Start Creating
+                            <div className={styles.btnFlash}></div>
+                        </button>
+                        <button className={styles.secondaryBtn}>
+                            Explore
+                        </button>
                     </div>
                 </div>
 
-                {/* Right: Visual Focus */}
-                <div ref={visualsRef} className={styles.rightColumn}>
-                    <div className={styles.imageMask}>
-                        <Image
-                            src="/hero2bg.png"
-                            alt="Flocky Abstract"
-                            fill
-                            priority
-                            className={styles.bgImage}
-                            style={{ objectFit: "cover" }}
-                        />
-                        <div className={styles.noiseOverlay}></div>
-                        <div className={styles.glassCard}>
-                            <div className={styles.cardHeader}>
-                                <div className={styles.cardDot}></div>
-                                <div className={styles.cardDot}></div>
-                            </div>
-                            <div className={styles.cardBody}>
-                                <div className={styles.cardLine} style={{ width: "60%" }}></div>
-                                <div className={styles.cardLine} style={{ width: "80%" }}></div>
-                                <div className={styles.cardLine} style={{ width: "40%" }}></div>
-                            </div>
-                        </div>
+                {/* Right: 3D Scene */}
+                <div className={styles.right}>
+                    <div className={styles.canvasContainer}>
+                        <Suspense fallback={null}>
+                            <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+                                <Environment preset="city" />
+                                <Float
+                                    speed={2}
+                                    rotationIntensity={0.5}
+                                    floatIntensity={0.5}
+                                >
+                                    <AbstractShape />
+                                </Float>
+                                <ContactShadows
+                                    position={[0, -2, 0]}
+                                    opacity={0.5}
+                                    scale={10}
+                                    blur={2.5}
+                                    far={4}
+                                />
+                            </Canvas>
+                        </Suspense>
                     </div>
                 </div>
             </div>
+
+            {/* Bottom Floating Nav */}
+            <nav ref={navRef} className={styles.navDocker}>
+                <a href="#" className={`${styles.navItem} ${styles.active}`}>
+                    <span className={styles.navIcon}>⊞</span>
+                    <span className={styles.navText}>Home</span>
+                </a>
+                <a href="#" className={styles.navItem}>
+                    <span className={styles.navIcon}>⊕</span>
+                    <span className={styles.navText}>Work</span>
+                </a>
+                <a href="#" className={styles.navItem}>
+                    <span className={styles.navIcon}>⊙</span>
+                    <span className={styles.navText}>About</span>
+                </a>
+                <div className={styles.navSeparator}></div>
+                <a href="#" className={styles.navCta}>Get Flocky</a>
+            </nav>
         </section>
     );
 }
