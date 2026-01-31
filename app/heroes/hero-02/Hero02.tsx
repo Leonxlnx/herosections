@@ -13,30 +13,28 @@ export default function Hero02() {
     const contentColRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (!titleLinesRef.current.length) return;
+
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        // Initial States
-        gsap.set(navRef.current, { y: -20, opacity: 0 });
-        gsap.set(contentColRef.current, { opacity: 1 }); // container visible
-        gsap.set(titleLinesRef.current, { y: 100, rotateX: -10, opacity: 0 });
-        gsap.set(visualColRef.current, { x: 40, opacity: 0, scale: 0.95 });
+        // Ensure visible by default, animate FROM hidden
+        gsap.set([navRef.current, visualColRef.current], { autoAlpha: 1 });
 
-        // Animation Sequence
-        tl.to(navRef.current, { y: 0, opacity: 1, duration: 1 })
-            .to(
+        tl.from(navRef.current, { y: -20, autoAlpha: 0, duration: 1 })
+            .from(
                 titleLinesRef.current,
                 {
-                    y: 0,
-                    rotateX: 0,
-                    opacity: 1,
+                    y: 100,
+                    rotateX: -10,
+                    autoAlpha: 0,
                     duration: 1.2,
                     stagger: 0.1,
                 },
                 "-=0.6"
             )
-            .to(
+            .from(
                 visualColRef.current,
-                { x: 0, opacity: 1, scale: 1, duration: 1.4, ease: "expo.out" },
+                { x: 40, autoAlpha: 0, scale: 0.95, duration: 1.4, ease: "expo.out" },
                 "-=1"
             );
 
