@@ -9,21 +9,20 @@ export default function Hero02() {
     const containerRef = useRef<HTMLElement>(null);
     const navRef = useRef<HTMLElement>(null);
     const titleLinesRef = useRef<(HTMLSpanElement | null)[]>([]);
-    const cardRef = useRef<HTMLDivElement>(null);
-    const visualRef = useRef<HTMLDivElement>(null);
+    const visualColRef = useRef<HTMLDivElement>(null);
+    const contentColRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        // Reset initial states
+        // Initial States
         gsap.set(navRef.current, { y: -20, opacity: 0 });
-        gsap.set(titleLinesRef.current, { y: 120, rotateX: -20, opacity: 0 });
-        gsap.set(cardRef.current, { y: 40, opacity: 0, scale: 0.95 });
-        gsap.set(visualRef.current, { scale: 1.1, opacity: 0 });
+        gsap.set(contentColRef.current, { opacity: 1 }); // container visible
+        gsap.set(titleLinesRef.current, { y: 100, rotateX: -10, opacity: 0 });
+        gsap.set(visualColRef.current, { x: 40, opacity: 0, scale: 0.95 });
 
         // Animation Sequence
-        tl.to(visualRef.current, { scale: 1, opacity: 1, duration: 1.5, ease: "power2.out" })
-            .to(navRef.current, { y: 0, opacity: 1, duration: 1 }, "-=1.2")
+        tl.to(navRef.current, { y: 0, opacity: 1, duration: 1 })
             .to(
                 titleLinesRef.current,
                 {
@@ -33,33 +32,27 @@ export default function Hero02() {
                     duration: 1.2,
                     stagger: 0.1,
                 },
-                "-=0.8"
+                "-=0.6"
             )
             .to(
-                cardRef.current,
-                { y: 0, opacity: 1, scale: 1, duration: 1 },
-                "-=0.6"
+                visualColRef.current,
+                { x: 0, opacity: 1, scale: 1, duration: 1.4, ease: "expo.out" },
+                "-=1"
             );
 
-        // Parallax Effect
+        // Mouse Interaction
         const handleMouseMove = (e: MouseEvent) => {
+            if (!visualColRef.current) return;
             const { clientX, clientY } = e;
-            const x = (clientX / window.innerWidth - 0.5) * 20;
-            const y = (clientY / window.innerHeight - 0.5) * 20;
+            const x = (clientX / window.innerWidth - 0.5) * 30;
+            const y = (clientY / window.innerHeight - 0.5) * 30;
 
-            gsap.to(visualRef.current, {
+            gsap.to(visualColRef.current, {
+                rotationY: x * 0.5,
+                rotationX: -y * 0.5,
                 x: x * 0.5,
                 y: y * 0.5,
                 duration: 2,
-                ease: "power2.out",
-            });
-
-            gsap.to(cardRef.current, {
-                x: x * 0.2,
-                y: y * 0.2,
-                rotateY: x * 0.5,
-                rotateX: -y * 0.5,
-                duration: 1.5,
                 ease: "power2.out",
             });
         };
@@ -76,63 +69,95 @@ export default function Hero02() {
 
     return (
         <section ref={containerRef} className={styles.hero}>
-            {/* Cinematic Background with Mask */}
-            <div className={styles.bgContainer}>
-                <div ref={visualRef} className={styles.bgImageWrapper}>
-                    <Image
-                        src="/hero2bg.png"
-                        alt="Flocky Background"
-                        fill
-                        priority
-                        style={{ objectFit: "cover" }}
-                    />
-                    <div className={styles.vignette}></div>
-                </div>
+            {/* Background Texture */}
+            <div className={styles.bgTexture}>
+                <Image
+                    src="/hero2bg.png"
+                    alt="Texture"
+                    fill
+                    className={styles.bgImage}
+                />
+                <div className={styles.vignette}></div>
             </div>
 
-            {/* Elegant Floating Nav */}
-            <nav ref={navRef} className={styles.navBar}>
-                <div className={styles.navLogo}>Flocky</div>
-                <div className={styles.navItems}>
-                    <a href="#">Work</a>
-                    <a href="#">Agency</a>
-                    <a href="#">Contact</a>
+            {/* Nav - Clean Top Bar */}
+            <nav ref={navRef} className={styles.nav}>
+                <div className={styles.navLeft}>
+                    <span className={styles.brand}>Flocky</span>
                 </div>
-                <a href="#" className={styles.navBtn}>Let's Talk</a>
+                <div className={styles.navRight}>
+                    <a href="#">Work</a>
+                    <a href="#">Studio</a>
+                    <a href="#" className={styles.navCta}>Start</a>
+                </div>
             </nav>
 
-            {/* Main Content */}
-            <div className={styles.contentContainer}>
-                <h1 className={styles.title}>
-                    <span className={styles.lineWrapper}>
-                        <span ref={addToTitleRef} className={styles.line}>Crafting</span>
-                    </span>
-                    <span className={styles.lineWrapper}>
-                        <span ref={addToTitleRef} className={styles.line}>Digital</span>
-                    </span>
-                    <span className={styles.lineWrapper}>
-                        <span ref={addToTitleRef} className={styles.line} style={{ color: "rgba(255,255,255,0.5)" }}>Reality.</span>
-                    </span>
-                </h1>
+            {/* Main Grid */}
+            <div className={styles.grid}>
+                {/* Left: Content */}
+                <div ref={contentColRef} className={styles.contentCol}>
+                    <div className={styles.eyebrow}>
+                        <span className={styles.statusDot}></span>
+                        <span>System 3.0</span>
+                    </div>
 
-                {/* Premium Glass Card */}
-                <div ref={cardRef} className={styles.glassCard}>
-                    <div className={styles.cardContent}>
+                    <h1 className={styles.title}>
+                        <span className={styles.lineMask}>
+                            <span ref={addToTitleRef}>Crafting</span>
+                        </span>
+                        <span className={styles.lineMask}>
+                            <span ref={addToTitleRef}>Digital</span>
+                        </span>
+                        <span className={styles.lineMask}>
+                            <span ref={addToTitleRef} className={styles.highlight}>Reality</span>
+                        </span>
+                    </h1>
+
+                    <p className={styles.description}>
+                        We build digital experiences that feel tangible, precise, and infinitely scalable.
+                    </p>
+
+                    <div className={styles.actions}>
+                        <button className={styles.primaryBtn}>
+                            Explore Work
+                        </button>
+                        <button className={styles.secondaryBtn}>
+                            Our Process
+                        </button>
+                    </div>
+                </div>
+
+                {/* Right: Visual */}
+                <div ref={visualColRef} className={styles.visualCol}>
+                    <div className={styles.glassCard}>
                         <div className={styles.cardHeader}>
-                            <span className={styles.cardTag}>New System</span>
-                            <span className={styles.cardDate}>2026</span>
+                            <div className={styles.cardIcon}>◆</div>
+                            <span className={styles.cardLabel}>Flocky/UI</span>
                         </div>
-                        <h3 className={styles.cardTitle}>Fluid & Precise</h3>
-                        <p className={styles.cardText}>
-                            Experienced digital perfection with our new design methodology.
-                        </p>
+
+                        <div className={styles.cardBody}>
+                            <div className={styles.statRow}>
+                                <span>Precision</span>
+                                <span className={styles.statVal}>100%</span>
+                            </div>
+                            <div className={styles.statBar}>
+                                <div className={styles.statFill}></div>
+                            </div>
+
+                            <div className={styles.cardMessage}>
+                                "The impossible is just an unoptimized render."
+                            </div>
+                        </div>
+
                         <div className={styles.cardFooter}>
-                            <a href="#" className={styles.cardLink}>
-                                Explore System <span className={styles.arrow}>→</span>
-                            </a>
+                            <div className={styles.avatarGroup}>
+                                <div className={styles.avatar}></div>
+                                <div className={styles.avatar}></div>
+                                <div className={styles.avatar}></div>
+                            </div>
+                            <span className={styles.footerText}>+4k Designers</span>
                         </div>
                     </div>
-                    <div className={styles.cardShine}></div>
                 </div>
             </div>
         </section>
