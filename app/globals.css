@@ -1,32 +1,42 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   HERO SECTIONS COLLECTION - GLOBAL STYLES
-   Clean Black & White Soft UI Design
+   HERO SECTIONS COLLECTION - SOFT UI DESIGN SYSTEM
+   Black & White with Subtle Gradients
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CSS VARIABLES & DESIGN TOKENS
    ───────────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Colors - Clean B&W */
-  --bg-primary: #fff;
-  --bg-secondary: #fafafa;
-  --bg-tertiary: #f5f5f5;
+  /* Soft UI Colors */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #f0f1f3;
+  --bg-tertiary: #e8e9eb;
   --bg-card: #fff;
-  --bg-card-hover: #fafafa;
 
-  --text-primary: #000;
-  --text-secondary: #666;
-  --text-muted: #999;
+  /* Soft UI Shadows */
+  --shadow-soft-light: -6px -6px 14px rgba(255, 255, 255, 0.7);
+  --shadow-soft-dark: 6px 6px 14px rgba(0, 0, 0, 0.05);
+  --shadow-soft: var(--shadow-soft-light), var(--shadow-soft-dark);
 
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-light: rgba(0, 0, 0, 0.1);
+  --shadow-soft-inset-light: inset -3px -3px 7px rgba(255, 255, 255, 0.8);
+  --shadow-soft-inset-dark: inset 3px 3px 7px rgba(0, 0, 0, 0.04);
+  --shadow-soft-inset: var(--shadow-soft-inset-light), var(--shadow-soft-inset-dark);
+
+  /* Text Colors */
+  --text-primary: #111;
+  --text-secondary: #555;
+  --text-muted: #888;
+
+  /* Borders */
+  --border-subtle: rgba(0, 0, 0, 0.04);
+  --border-light: rgba(0, 0, 0, 0.08);
 
   /* Typography */
   --font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Spacing */
   --section-padding: clamp(4rem, 10vw, 8rem);
-  --container-max: 1200px;
+  --container-max: 1000px;
 
   /* Animation */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -63,13 +73,31 @@ a {
   text-decoration: none;
 }
 
-/* Button base styles */
+/* ─────────────────────────────────────────────────────────────────────────────
+   SOFT UI UTILITIES
+   ───────────────────────────────────────────────────────────────────────────── */
+.soft-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-subtle);
+}
+
+.soft-card-inset {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft-inset);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BUTTON STYLES
+   ───────────────────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 10px;
+  padding: 0.85rem 1.5rem;
+  border-radius: 12px;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
@@ -79,21 +107,24 @@ a {
 }
 
 .btn-primary {
-  background: #000;
+  background: #111;
   color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.btn-secondary {
-  background: var(--bg-tertiary);
+.btn-soft {
+  background: var(--bg-card);
   color: var(--text-primary);
-  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-soft);
 }
 
-.btn-secondary:hover {
-  background: var(--bg-secondary);
+.btn-soft:hover {
+  box-shadow:
+    -8px -8px 18px rgba(255, 255, 255, 0.8),
+    8px 8px 18px rgba(0, 0, 0, 0.06);
 }

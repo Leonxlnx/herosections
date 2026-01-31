@@ -1,117 +1,182 @@
 .collection {
-    padding: 2rem clamp(1.5rem, 5vw, 3rem) var(--section-padding);
+    padding: 1rem clamp(1.5rem, 5vw, 3rem) var(--section-padding);
     max-width: var(--container-max);
     margin: 0 auto;
 }
 
 .sectionHeader {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .sectionTitle {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     letter-spacing: -0.02em;
     color: var(--text-primary);
 }
 
 .sectionSubtitle {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
-/* Preview Grid */
-.previewGrid {
+/* 2-Column Bento Grid */
+.bentoGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
 }
 
-.previewCard {
+.bentoCard {
     background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
+    border-radius: 20px;
     overflow: hidden;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
     cursor: pointer;
     text-decoration: none;
+    transition: all 0.3s var(--ease-out-expo);
 }
 
-.previewCard:hover {
-    border-color: var(--border-light);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+.bentoCard:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        -10px -10px 20px rgba(255, 255, 255, 0.8),
+        10px 10px 20px rgba(0, 0, 0, 0.08);
 }
 
-.previewImage {
-    height: 180px;
-    background: var(--bg-tertiary);
+/* Card Preview Image */
+.cardPreview {
     position: relative;
+    height: 200px;
+    background: var(--bg-tertiary);
+    overflow: hidden;
 }
 
-.previewImage::after {
-    content: "";
+.cardPreview img {
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.bentoCard:hover .cardPreview img {
+    transform: scale(1.03);
+}
+
+.previewOverlay {
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(45deg,
-            transparent,
-            transparent 12px,
-            rgba(0, 0, 0, 0.015) 12px,
-            rgba(0, 0, 0, 0.015) 24px);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.previewInfo {
-    padding: 1rem 1.25rem;
+.bentoCard:hover .previewOverlay {
+    opacity: 1;
+}
+
+.viewLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #111;
+}
+
+/* Coming Soon Preview */
+.comingSoonPreview {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        repeating-linear-gradient(45deg,
+            transparent,
+            transparent 15px,
+            rgba(0, 0, 0, 0.015) 15px,
+            rgba(0, 0, 0, 0.015) 30px);
+}
+
+.comingSoonPreview span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Card Info */
+.cardInfo {
+    padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.cardMeta {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0.75rem;
 }
 
-.previewInfo h4 {
-    font-size: 0.95rem;
+.cardTag {
+    font-size: 0.7rem;
     font-weight: 600;
-    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: #111;
+    padding: 0.3rem 0.65rem;
+    border-radius: 5px;
 }
 
-.previewTag {
+.cardTagSoon {
     font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--text-muted);
-    background: var(--bg-tertiary);
-    padding: 0.3rem 0.6rem;
+    background: var(--bg-secondary);
+    padding: 0.3rem 0.65rem;
     border-radius: 5px;
+    box-shadow: var(--shadow-soft-inset);
 }
 
-/* Ready state */
-.ready {
-    border-color: rgba(0, 0, 0, 0.08);
+.cardNumber {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
 }
 
-.ready:hover {
-    border-color: rgba(0, 0, 0, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+.cardTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
 }
 
-.ready .previewImage {
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-}
-
-.ready .previewImage::after {
-    display: none;
-}
-
-.tagReady {
-    color: #000;
-    background: #000;
-    color: #fff;
+.cardDescription {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
 }
 
 /* Responsive */
-@media (max-width: 640px) {
-    .previewGrid {
+@media (max-width: 768px) {
+    .bentoGrid {
         grid-template-columns: 1fr;
+    }
+
+    .cardPreview {
+        height: 180px;
     }
 }

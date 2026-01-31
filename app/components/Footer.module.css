@@ -1,17 +1,87 @@
 .footer {
-    text-align: center;
-    padding: 2rem 1.5rem;
-    color: var(--text-muted);
+    padding: 2.5rem clamp(1.5rem, 5vw, 3rem) 2rem;
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+.footerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    background: var(--bg-card);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
+    margin-bottom: 1.5rem;
+}
+
+.footerBrand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brandIcon {
     font-size: 0.85rem;
-    border-top: 1px solid var(--border-subtle);
+    color: #111;
 }
 
-.footer a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.footer a:hover {
+.brandText {
+    font-size: 0.95rem;
+    font-weight: 600;
     color: var(--text-primary);
+}
+
+.footerLinks {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.footerLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft-inset);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.footerLink:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.footerBottom {
+    text-align: center;
+}
+
+.footerBottom p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .footerContent {
+        flex-direction: column;
+        gap: 1.25rem;
+        padding: 1.25rem 1.5rem;
+    }
+
+    .footerLinks {
+        gap: 0.75rem;
+    }
+
+    .footerLink {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.8rem;
+    }
 }
