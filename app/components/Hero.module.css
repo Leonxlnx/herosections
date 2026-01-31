@@ -9,16 +9,87 @@
     background: #f5f5f7;
 }
 
-/* Clean subtle gradient */
+/* Subtle gradient */
 .bgGradient {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0, 0, 0, 0.025) 0%, transparent 60%);
     pointer-events: none;
 }
 
-/* Minimal grid pattern */
+/* ═══════════════════════════════════════════════════════════════════════════
+   FLOATING ASSETS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.assetsContainer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.asset {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.025);
+    animation: float 8s ease-in-out infinite;
+}
+
+.asset1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    right: 8%;
+    animation-delay: 0s;
+}
+
+.asset2 {
+    width: 200px;
+    height: 200px;
+    bottom: 15%;
+    left: 5%;
+    animation-delay: 1s;
+}
+
+.asset3 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 15%;
+    border-radius: 20%;
+    animation-delay: 2s;
+}
+
+.asset4 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 12%;
+    border-radius: 30%;
+    animation-delay: 3s;
+}
+
+.asset5 {
+    width: 80px;
+    height: 80px;
+    bottom: 30%;
+    right: 25%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* Minimal grid */
 .gridPattern {
     position: absolute;
     inset: 0;
@@ -26,33 +97,22 @@
         linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
     background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 0%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 0%, transparent 65%);
     pointer-events: none;
 }
 
-/* Main Container */
-.heroContainer {
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTENT - NO CARD
+   ═══════════════════════════════════════════════════════════════════════════ */
+.heroContent {
     position: relative;
     z-index: 10;
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 4rem 3.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(30px);
-    border-radius: 32px;
-    box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.03),
-        0 30px 60px -20px rgba(0, 0, 0, 0.08),
-        0 15px 30px -15px rgba(0, 0, 0, 0.06);
-}
-
-.heroContent {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    max-width: 600px;
 }
 
 /* Badge */
@@ -60,36 +120,38 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.45rem 0.9rem;
-    background: rgba(0, 0, 0, 0.04);
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
     border-radius: 100px;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .badgeIcon {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: #111;
 }
 
 .badge span:last-child {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.01em;
-    color: var(--text-secondary);
+    color: #555;
 }
 
 /* Title */
 .heroTitle {
-    font-size: clamp(2.25rem, 5vw, 3.25rem);
-    font-weight: 680;
-    line-height: 1.08;
-    letter-spacing: -0.04em;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.045em;
     color: #111;
-    margin-bottom: 1.15rem;
+    margin-bottom: 1.25rem;
 }
 
 .titleAccent {
-    background: linear-gradient(135deg, #333 0%, #666 100%);
+    background: linear-gradient(135deg, #222 0%, #555 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -97,18 +159,18 @@
 
 /* Subtitle */
 .heroSubtitle {
-    font-size: 1.02rem;
+    font-size: 1.1rem;
     line-height: 1.7;
     color: #666;
-    max-width: 360px;
-    margin-bottom: 2rem;
+    max-width: 420px;
+    margin-bottom: 2.25rem;
 }
 
 /* CTA Buttons */
 .heroCta {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.85rem;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -116,21 +178,21 @@
 .ctaPrimary {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.9rem 1.65rem;
+    gap: 0.5rem;
+    padding: 0.95rem 1.75rem;
     background: #111;
     color: #fff;
-    border-radius: 12px;
-    font-size: 0.9rem;
+    border-radius: 14px;
+    font-size: 0.92rem;
     font-weight: 620;
     text-decoration: none;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ctaPrimary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.22);
 }
 
 .ctaPrimary svg {
@@ -145,32 +207,46 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.85rem 1.35rem;
-    background: transparent;
+    padding: 0.9rem 1.4rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
     color: #111;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 0.88rem;
     font-weight: 600;
     text-decoration: none;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     transition: all 0.25s ease;
 }
 
 .ctaSecondary:hover {
-    background: rgba(0, 0, 0, 0.04);
-    border-color: rgba(0, 0, 0, 0.18);
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.12);
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+    .asset1 {
+        width: 180px;
+        height: 180px;
+    }
+
+    .asset2 {
+        width: 120px;
+        height: 120px;
+    }
+
+    .asset3,
+    .asset4,
+    .asset5 {
+        display: none;
+    }
+}
+
 @media (max-width: 640px) {
     .hero {
         padding: 1.25rem;
         padding-top: 5rem;
-    }
-
-    .heroContainer {
-        padding: 2.5rem 1.75rem;
-        border-radius: 26px;
     }
 
     .heroCta {
