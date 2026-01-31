@@ -6,183 +6,158 @@ import Image from "next/image";
 import styles from "./Hero02.module.css";
 
 export default function Hero02() {
-    const heroRef = useRef<HTMLElement>(null);
+    const containerRef = useRef<HTMLElement>(null);
     const navRef = useRef<HTMLElement>(null);
-    const badgeRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
-    const descRef = useRef<HTMLParagraphElement>(null);
+    const visualsRef = useRef<HTMLDivElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
     const statsRef = useRef<HTMLDivElement>(null);
-    const featuresRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        tl.fromTo(
-            navRef.current,
-            { opacity: 0, y: -30 },
-            { opacity: 1, y: 0, duration: 1.2, delay: 0.1 }
-        )
+        // Initial State Set
+        gsap.set(navRef.current, { y: -20, opacity: 0 });
+        gsap.set(visualsRef.current, { scale: 0.95, opacity: 0 });
+
+        tl.to(navRef.current, { y: 0, opacity: 1, duration: 1, ease: "expo.out" })
             .fromTo(
-                badgeRef.current,
-                { opacity: 0, x: -30 },
-                { opacity: 1, x: 0, duration: 1 },
-                "-=0.8"
+                titleRef.current?.querySelectorAll(".word"),
+                { y: 100, rotateX: -20, opacity: 0 },
+                {
+                    y: 0,
+                    rotateX: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    stagger: 0.05,
+                    ease: "expo.out",
+                },
+                "-=0.6"
             )
-            .fromTo(
-                titleRef.current?.querySelectorAll("span") || [],
-                { opacity: 0, y: 80, rotateX: -15 },
-                { opacity: 1, y: 0, rotateX: 0, duration: 1.2, stagger: 0.08 },
-                "-=0.7"
-            )
-            .fromTo(
-                descRef.current,
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 1 },
-                "-=0.8"
+            .to(
+                visualsRef.current,
+                { scale: 1, opacity: 1, duration: 1.4, ease: "expo.out" },
+                "-=1"
             )
             .fromTo(
                 ctaRef.current?.children || [],
-                { opacity: 0, y: 25, scale: 0.9 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.9, stagger: 0.12 },
-                "-=0.7"
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
+                "-=0.8"
             )
             .fromTo(
                 statsRef.current?.children || [],
-                { opacity: 0, y: 40 },
-                { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
-                "-=0.5"
-            )
-            .fromTo(
-                featuresRef.current?.children || [],
-                { opacity: 0, scale: 0.8 },
-                { opacity: 1, scale: 1, duration: 0.7, stagger: 0.08 },
-                "-=0.4"
+                { x: -20, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
+                "-=0.6"
             );
+
+        // Subtle parallax for visuals
+        const handleMouseMove = (e: MouseEvent) => {
+            if (!visualsRef.current) return;
+            const { clientX, clientY } = e;
+            const xPos = (clientX / window.innerWidth - 0.5) * 20;
+            const yPos = (clientY / window.innerHeight - 0.5) * 20;
+
+            gsap.to(visualsRef.current, {
+                x: xPos,
+                y: yPos,
+                duration: 1.5,
+                ease: "power2.out",
+            });
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
     return (
-        <section ref={heroRef} className={styles.hero}>
-            {/* Background */}
-            <div className={styles.bgImage}>
-                <Image
-                    src="/hero2bg.png"
-                    alt="Dark abstract background"
-                    fill
-                    priority
-                    style={{ objectFit: "cover" }}
-                />
-                <div className={styles.bgOverlay}></div>
-            </div>
-
-            {/* Floating elements */}
-            <div className={styles.floatingOrb1}></div>
-            <div className={styles.floatingOrb2}></div>
-
-            {/* Navigation */}
-            <nav ref={navRef} className={styles.nav}>
-                <div className={styles.logo}>
-                    <div className={styles.logoShape}></div>
-                    <span>Nexus</span>
-                </div>
+        <section ref={containerRef} className={styles.hero}>
+            {/* Floating Capsule Nav */}
+            <nav ref={navRef} className={styles.navCapsule}>
+                <div className={styles.navLogo}>Flocky</div>
                 <div className={styles.navLinks}>
-                    <a href="#">Product</a>
-                    <a href="#">Solutions</a>
-                    <a href="#">Developers</a>
-                    <a href="#">Pricing</a>
+                    <a href="#">Work</a>
+                    <a href="#">Studio</a>
+                    <a href="#">Cart</a>
                 </div>
-                <div className={styles.navRight}>
-                    <a href="#" className={styles.navLogin}>Log in</a>
-                    <a href="#" className={styles.navCta}>Start Free →</a>
-                </div>
+                <a href="#" className={styles.navMenuBtn}>
+                    <div className={styles.menuDot}></div>
+                    <div className={styles.menuDot}></div>
+                </a>
             </nav>
 
-            {/* Main Content - Left Aligned */}
-            <div className={styles.content}>
-                <div className={styles.contentLeft}>
-                    <div ref={badgeRef} className={styles.badge}>
-                        <span className={styles.badgePulse}></span>
-                        Now in Public Beta
-                    </div>
-
+            <div className={styles.contentWrapper}>
+                {/* Left: Typography & Action */}
+                <div className={styles.leftColumn}>
                     <h1 ref={titleRef} className={styles.title}>
-                        <span>Ship</span>
-                        <span>products</span>
-                        <span>10x</span>
-                        <span>faster</span>
+                        <div className={styles.line}>
+                            <span className="word">Design</span>
+                            <span className="word">with</span>
+                        </div>
+                        <div className={styles.line}>
+                            <span className="word">absolute</span>
+                        </div>
+                        <div className={styles.line}>
+                            <span className="word" style={{ color: "rgba(255,255,255,0.5)" }}>
+                                precision.
+                            </span>
+                        </div>
                     </h1>
 
-                    <p ref={descRef} className={styles.description}>
-                        The modern development platform that scales with your ambition.
-                        From prototype to production in minutes, not months.
-                    </p>
-
-                    <div ref={ctaRef} className={styles.cta}>
-                        <a href="#" className={styles.ctaPrimary}>
-                            Get Started Free
+                    <div ref={ctaRef} className={styles.ctaGroup}>
+                        <a href="#" className={styles.primaryBtn}>
+                            <span className={styles.btnText}>Start Project</span>
+                            <span className={styles.btnIcon}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </span>
                         </a>
-                        <a href="#" className={styles.ctaSecondary}>
-                            <span className={styles.playIcon}>▶</span>
-                            Watch 2min Demo
+                        <div className={styles.divider}></div>
+                        <a href="#" className={styles.secondaryBtn}>
+                            Showcase (24)
                         </a>
                     </div>
 
-                    <div ref={statsRef} className={styles.stats}>
-                        <div className={styles.stat}>
-                            <span className={styles.statValue}>50K+</span>
-                            <span className={styles.statLabel}>Developers</span>
+                    <div ref={statsRef} className={styles.statsRow}>
+                        <div className={styles.statItem}>
+                            <span className={styles.statNum}>01</span>
+                            <span className={styles.statLabel}>Concept</span>
                         </div>
-                        <div className={styles.statDivider}></div>
-                        <div className={styles.stat}>
-                            <span className={styles.statValue}>99.9%</span>
-                            <span className={styles.statLabel}>Uptime</span>
+                        <div className={styles.statItem}>
+                            <span className={styles.statNum}>02</span>
+                            <span className={styles.statLabel}>Build</span>
                         </div>
-                        <div className={styles.statDivider}></div>
-                        <div className={styles.stat}>
-                            <span className={styles.statValue}>2M+</span>
-                            <span className={styles.statLabel}>Deploys</span>
+                        <div className={styles.statItem}>
+                            <span className={styles.statNum}>03</span>
+                            <span className={styles.statLabel}>Ship</span>
                         </div>
                     </div>
                 </div>
 
-                <div className={styles.contentRight}>
-                    <div ref={featuresRef} className={styles.featureCards}>
-                        <div className={styles.featureCard}>
-                            <div className={styles.featureIcon}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                </svg>
+                {/* Right: Visual Focus */}
+                <div ref={visualsRef} className={styles.rightColumn}>
+                    <div className={styles.imageMask}>
+                        <Image
+                            src="/hero2bg.png"
+                            alt="Flocky Abstract"
+                            fill
+                            priority
+                            className={styles.bgImage}
+                            style={{ objectFit: "cover" }}
+                        />
+                        <div className={styles.noiseOverlay}></div>
+                        <div className={styles.glassCard}>
+                            <div className={styles.cardHeader}>
+                                <div className={styles.cardDot}></div>
+                                <div className={styles.cardDot}></div>
                             </div>
-                            <span>Instant Deploy</span>
-                        </div>
-                        <div className={styles.featureCard}>
-                            <div className={styles.featureIcon}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                </svg>
+                            <div className={styles.cardBody}>
+                                <div className={styles.cardLine} style={{ width: "60%" }}></div>
+                                <div className={styles.cardLine} style={{ width: "80%" }}></div>
+                                <div className={styles.cardLine} style={{ width: "40%" }}></div>
                             </div>
-                            <span>Enterprise Security</span>
-                        </div>
-                        <div className={styles.featureCard}>
-                            <div className={styles.featureIcon}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <line x1="2" y1="12" x2="22" y2="12" />
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                                </svg>
-                            </div>
-                            <span>Global CDN</span>
-                        </div>
-                        <div className={styles.featureCard}>
-                            <div className={styles.featureIcon}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="18" y1="20" x2="18" y2="10" />
-                                    <line x1="12" y1="20" x2="12" y2="4" />
-                                    <line x1="6" y1="20" x2="6" y2="14" />
-                                </svg>
-                            </div>
-                            <span>Real-time Analytics</span>
                         </div>
                     </div>
                 </div>

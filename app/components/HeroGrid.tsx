@@ -20,8 +20,8 @@ const heroes = [
     },
     {
         id: 2,
-        name: "Nexus Dark",
-        description: "Premium dark mode hero with geometric background, bold typography, and smooth animations.",
+        name: "Flocky",
+        description: "Premium asymmetrical dark mode hero with creative capsule navigation and liquid monochrome visuals.",
         slug: "hero-02",
         status: "ready",
         preview: "/hero2bg.png",
