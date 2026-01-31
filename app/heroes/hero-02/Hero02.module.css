@@ -15,22 +15,24 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.4;
+    opacity: 0.6;
+    /* Slight bump for visibility */
 }
 
 .bgImage {
     object-fit: cover;
-    filter: grayscale(100%);
+    filter: grayscale(100%) contrast(1.2) brightness(0.6);
 }
 
 .vignette {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, #050505 0%, rgba(5, 5, 5, 0.8) 40%, rgba(5, 5, 5, 0.4) 100%);
+    background: radial-gradient(circle at 60% 50%, transparent 0%, #050505 90%);
+    pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   NAV
+   NAV STANDARD
    ═══════════════════════════════════════════════════════════════════════════ */
 .nav {
     position: relative;
@@ -38,31 +40,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 4rem;
+    padding: 2.5rem 5vw;
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
 }
 
 .brand {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
+    color: #fff;
 }
 
 .navRight {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-    border-radius: 100px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
+    gap: 2.5rem;
 }
 
 .navRight a {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
@@ -74,11 +72,17 @@
 }
 
 .navCta {
-    padding: 0.6rem 1.25rem;
+    padding: 0.75rem 1.75rem;
     background: #fff;
     color: #000 !important;
     border-radius: 100px;
-    font-weight: 600 !important;
+    font-weight: 650 !important;
+    font-size: 0.9rem !important;
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.navCta:hover {
+    transform: scale(1.04);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -87,31 +91,42 @@
 .grid {
     flex: 1;
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 0 4rem;
+    padding: 0 5vw;
     align-items: center;
+    gap: 4rem;
     position: relative;
     z-index: 10;
 }
 
 /* Left Content */
 .contentCol {
-    padding-right: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    /* Explicit left align */
+    padding-bottom: 5vh;
+    /* Visual balance */
 }
 
 .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 2rem;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    gap: 10px;
+    margin-bottom: 2.5rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .statusDot {
@@ -119,124 +134,157 @@
     height: 6px;
     background: #fff;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 .title {
-    font-size: clamp(4rem, 7vw, 6.5rem);
+    font-size: clamp(3.5rem, 6.5vw, 6rem);
+    /* Reduced slightly for better fit */
     font-weight: 800;
-    line-height: 0.95;
+    line-height: 1.1;
+    /* Fixed overlap issue */
     letter-spacing: -0.04em;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    color: #fff;
 }
 
 .lineMask {
     display: block;
+    /* Ensure block level */
     overflow: hidden;
+    padding-bottom: 0.1em;
+    /* Prevent descender clipping */
 }
 
 .lineMask span {
     display: block;
+    transform-origin: bottom left;
 }
 
 .highlight {
-    color: rgba(255, 255, 255, 0.4);
+    color: #888;
+    /* Silver grey */
 }
 
 .description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 500px;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 520px;
     margin-bottom: 3.5rem;
+    font-weight: 400;
 }
 
 .actions {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .primaryBtn {
-    padding: 1rem 2rem;
+    padding: 1.1rem 2.4rem;
     background: #fff;
-    color: #000;
+    color: #050505;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    letter-spacing: -0.01em;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .primaryBtn:hover {
+    background: #f0f0f0;
     transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .secondaryBtn {
-    padding: 1rem 2rem;
+    padding: 1.1rem 2rem;
     background: transparent;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .secondaryBtn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Right Visual */
 .visualCol {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    /* Push card slightly right */
     align-items: center;
-    perspective: 1000px;
+    padding-right: 2vw;
+    height: 100%;
 }
 
 .glassCard {
     width: 100%;
-    max-width: 480px;
-    padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(24px);
+    max-width: 440px;
+    aspect-ratio: 4/3.5;
+    padding: 3rem;
+    background: rgba(10, 10, 10, 0.4);
+    /* Darker, cleaner base */
+    backdrop-filter: blur(30px) saturate(140%);
+    -webkit-backdrop-filter: blur(30px) saturate(140%);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 32px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    /* Finer border */
+    border-radius: 30px;
+    box-shadow:
+        0 40px 80px -20px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .cardHeader {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 3rem;
+    align-items: flex-start;
 }
 
 .cardIcon {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     display: grid;
     place-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    font-size: 1.2rem;
+    background: #fff;
+    color: #000;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    font-weight: bold;
 }
 
 .cardLabel {
-    font-family: monospace;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+}
+
+.cardBody {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 2rem 0;
 }
 
 .statRow {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.75rem;
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .statVal {
@@ -244,26 +292,38 @@
 }
 
 .statBar {
-    height: 4px;
+    height: 3px;
+    width: 100%;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
+    border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .statFill {
     width: 100%;
     height: 100%;
     background: #fff;
+    transform-origin: left;
+    animation: growBar 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes growBar {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
 }
 
 .cardMessage {
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-    margin-bottom: 3rem;
-    color: #ddd;
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: #eee;
 }
 
 .cardFooter {
@@ -271,7 +331,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .avatarGroup {
@@ -279,51 +339,84 @@
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: #333;
-    border: 2px solid #050505;
-    /* Matches bg */
-    margin-left: -10px;
+    background: #222;
+    border: 3px solid #0e0e0e;
+    /* Matches darker card bg */
+    margin-left: -12px;
 }
 
 .avatar:first-child {
     margin-left: 0;
+    background: #fff;
+}
+
+.avatar:nth-child(2) {
     background: #666;
+}
+
+.avatar:nth-child(3) {
+    background: #333;
 }
 
 .footerText {
     font-size: 0.85rem;
+    font-weight: 500;
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* Responsive */
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-    .nav {
-        padding: 1.5rem 2rem;
-    }
-
     .grid {
         grid-template-columns: 1fr;
-        padding: 0 2rem;
         gap: 4rem;
+        padding-bottom: 4rem;
     }
 
     .contentCol {
-        padding-right: 0;
-        text-align: center;
         align-items: center;
-        display: flex;
-        flex-direction: column;
+        text-align: center;
+        padding-right: 0;
+    }
+
+    .visualCol {
+        justify-content: center;
+        padding-right: 0;
+    }
+
+    .nav {
+        padding: 2rem 5vw;
+    }
+
+    .navRight {
+        display: none;
     }
 
     .title {
         font-size: 4rem;
     }
+}
 
-    .visualCol {
-        display: none;
-        /* Simplify for mobile, or stack */
+@media (max-width: 600px) {
+    .title {
+        font-size: 3.25rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .primaryBtn,
+    .secondaryBtn {
+        width: 100%;
+    }
+
+    .glassCard {
+        padding: 2rem;
     }
 }
