@@ -4,13 +4,13 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <p>
-                Made with passion ·{" "}
+                Made with care ·{" "}
                 <a
-                    href="https://github.com"
+                    href="https://github.com/Leonxlnx/herosections"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    View on GitHub
+                    GitHub
                 </a>
             </p>
         </footer>

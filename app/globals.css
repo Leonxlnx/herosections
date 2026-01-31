@@ -1,40 +1,32 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    HERO SECTIONS COLLECTION - GLOBAL STYLES
+   Clean Black & White Soft UI Design
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CSS VARIABLES & DESIGN TOKENS
    ───────────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Colors */
-  --bg-primary: #0a0a0b;
-  --bg-secondary: #111113;
-  --bg-tertiary: #1a1a1d;
-  --bg-card: #141416;
-  --bg-card-hover: #1e1e21;
+  /* Colors - Clean B&W */
+  --bg-primary: #fff;
+  --bg-secondary: #fafafa;
+  --bg-tertiary: #f5f5f5;
+  --bg-card: #fff;
+  --bg-card-hover: #fafafa;
 
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+  --text-primary: #000;
+  --text-secondary: #666;
+  --text-muted: #999;
 
-  --accent-primary: #8b5cf6;
-  --accent-secondary: #a78bfa;
-  --accent-glow: rgba(139, 92, 246, 0.3);
-
-  --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-light: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-light: rgba(0, 0, 0, 0.1);
 
   /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Spacing */
   --section-padding: clamp(4rem, 10vw, 8rem);
-  --container-max: 1400px;
+  --container-max: 1200px;
 
   /* Animation */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -71,47 +63,29 @@ a {
   text-decoration: none;
 }
 
-/* Grain overlay for texture */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  z-index: 9999;
-}
-
-/* Gradient text utility */
-.gradient-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 50%, #fb923c 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* Button base styles */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.5rem;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s var(--ease-out-quart);
+  transition: all 0.2s var(--ease-out-quart);
   cursor: pointer;
   border: none;
 }
 
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-primary);
+  background: #000;
+  color: #fff;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
 
 .btn-secondary {
@@ -121,6 +95,5 @@ a {
 }
 
 .btn-secondary:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-light);
+  background: var(--bg-secondary);
 }
