@@ -21,10 +21,10 @@ const heroes = [
     {
         id: 2,
         name: "Flocky",
-        description: "Ultra-premium dark mode hero. No 3D, just pure cinematic typography and refined glassmorphism.",
+        description: "Premium liquid glass aesthetic with organic monochrome visuals and ultra-smooth animations.",
         slug: "hero-02",
         status: "ready",
-        preview: "/hero2bg.png",
+        preview: "/hero2bg_liquid.png",
     },
     {
         id: 3,

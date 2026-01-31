@@ -72,7 +72,7 @@ export default function Hero02() {
             {/* Background Texture */}
             <div className={styles.bgTexture}>
                 <Image
-                    src="/hero2bg.png"
+                    src="/hero2bg_liquid.png"
                     alt="Texture"
                     fill
                     className={styles.bgImage}
