@@ -2,293 +2,257 @@
     position: relative;
     height: 100vh;
     width: 100%;
-    background: #030303;
+    background: #050505;
     color: #fff;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 }
 
-/* Background Effects */
-.grid {
+/* ═══════════════════════════════════════════════════════════════════════════
+   BACKGROUND & MASK
+   ═══════════════════════════════════════════════════════════════════════════ */
+.bgContainer {
     position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 80px 80px;
-    mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 80%);
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.bgImageWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(100%) contrast(1.1) brightness(0.8);
+    /* Refined look */
+    transform-origin: center;
 }
 
 .vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 50%, transparent 0%, #030303 120%);
+    background: radial-gradient(circle at 50% 50%, transparent 20%, #050505 100%);
     pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   LAYOUT
+   ELEGANT FLOATING NAV
    ═══════════════════════════════════════════════════════════════════════════ */
-.content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    max-width: 1400px;
-    padding: 0 4rem;
-    z-index: 10;
+.navBar {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
     align-items: center;
-    height: 80%;
+    justify-content: space-between;
+    width: min(90%, 600px);
+    padding: 0.75rem 0.8rem 0.75rem 1.5rem;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Subtle border */
+    border-radius: 100px;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
 }
 
-/* Left Column */
-.left {
+.navLogo {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    margin-right: auto;
+}
+
+.navItems {
+    display: flex;
+    gap: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+.navItems a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.navItems a:hover {
+    color: #fff;
+}
+
+.navBtn {
+    padding: 0.6rem 1.25rem;
+    background: #fff;
+    color: #000;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.navBtn:hover {
+    transform: scale(1.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════════════════ */
+.contentContainer {
+    position: relative;
+    z-index: 10;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: 20;
-}
-
-.badge {
-    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background: rgba(255, 255, 255, 0.08);
-    /* No heavy borders, smooth glass */
-    border-radius: 100px;
-    width: fit-content;
-    margin-bottom: 2rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: #ccc;
-    backdrop-filter: blur(10px);
+    text-align: center;
+    gap: 4rem;
+    padding-top: 4rem;
 }
 
-.badgeDot {
-    width: 6px;
-    height: 6px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
+/* Title Typography */
 .title {
-    font-size: clamp(4rem, 8vw, 6.5rem);
-    font-weight: 700;
-    line-height: 0.9;
-    letter-spacing: -0.05em;
-    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 750;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    color: #fff;
+}
+
+.lineWrapper {
+    overflow: hidden;
+    display: block;
 }
 
 .line {
     display: block;
+    transform-origin: bottom center;
+}
+
+/* Premium Glass Card */
+.glassCard {
+    position: relative;
+    width: min(90%, 420px);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(40px);
+    /* Deep blur */
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
     overflow: hidden;
-    height: 1.1em;
-    /* Tweak for ascenders/descenders */
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    text-align: left;
+    transform-style: preserve-3d;
 }
 
-.word {
-    display: inline-block;
-    transform-origin: bottom left;
+.cardContent {
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
 }
 
-.ctaGroup {
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.cardTag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.cardDate {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+}
+
+.cardTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.03em;
+}
+
+.cardText {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2rem;
+}
+
+.cardFooter {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
 }
 
-.primaryBtn {
-    position: relative;
-    padding: 1.1rem 2.2rem;
-    background: #fff;
-    color: #000;
-    border: none;
-    border-radius: 14px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    overflow: hidden;
-    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.primaryBtn:hover {
-    transform: scale(1.02);
-}
-
-.btnFlash {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-    transform: skewX(-20deg);
-    animation: flash 3s infinite;
-}
-
-@keyframes flash {
-
-    0%,
-    80% {
-        left: -100%;
-    }
-
-    100% {
-        left: 200%;
-    }
-}
-
-.secondaryBtn {
-    padding: 1rem 1.5rem;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 14px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.secondaryBtn:hover {
-    background: rgba(255, 255, 255, 0.05);
+.cardLink {
     color: #fff;
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
-/* Right Column - 3D */
-.right {
-    height: 100%;
-    position: relative;
-}
-
-.canvasContainer {
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
-    /* Ensure height for canvas */
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   BOTTOM FLOATING DOCK NAV
-   ═══════════════════════════════════════════════════════════════════════════ */
-.navDocker {
-    position: fixed;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem;
-    background: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    box-shadow:
-        0 20px 40px -10px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    z-index: 100;
+    transition: gap 0.2s ease;
 }
 
-.navItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 56px;
-    border-radius: 14px;
-    color: rgba(255, 255, 255, 0.5);
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    gap: 2px;
+.cardLink:hover {
+    gap: 0.8rem;
 }
 
-.navItem:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    transform: translateY(-4px);
+/* Shine Effect */
+.cardShine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(105deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.05) 45%,
+            transparent 50%);
+    z-index: 1;
+    pointer-events: none;
 }
 
-.navItem.active {
-    background: rgba(255, 255, 255, 0.12);
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.navIcon {
-    font-size: 1.1rem;
-}
-
-.navText {
-    font-size: 0.65rem;
-    font-weight: 500;
-    opacity: 0.8;
-}
-
-.navSeparator {
-    width: 1px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.15);
-    margin: 0 0.5rem;
-}
-
-.navCta {
-    padding: 0.75rem 1.25rem;
-    background: #fff;
-    color: #000;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    font-weight: 650;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.navCta:hover {
-    background: #e0e0e0;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 0 2rem;
-        height: auto;
-        padding-top: 6rem;
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .navBar {
+        width: 90%;
+        padding: 0.75rem 1rem;
     }
 
-    .left {
-        align-items: center;
-        margin-bottom: 2rem;
+    .navItems {
+        display: none;
+    }
+
+    .glassCard {
+        width: 90%;
     }
 
     .title {
-        align-items: center;
         font-size: 3.5rem;
-    }
-
-    .canvasContainer {
-        min-height: 400px;
-    }
-
-    .navDocker {
-        bottom: 1.5rem;
-        width: 90%;
-        justify-content: space-around;
-    }
-
-    .navItem {
-        width: auto;
-        flex: 1;
-        height: 50px;
     }
 }
