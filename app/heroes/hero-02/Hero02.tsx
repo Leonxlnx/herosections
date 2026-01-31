@@ -96,11 +96,6 @@ export default function Hero02() {
             <div className={styles.grid}>
                 {/* Left: Content */}
                 <div ref={contentColRef} className={styles.contentCol}>
-                    <div className={styles.eyebrow}>
-                        <span className={styles.statusDot}></span>
-                        <span>System 3.0</span>
-                    </div>
-
                     <h1 className={styles.title}>
                         <span className={styles.lineMask}>
                             <span ref={addToTitleRef}>Crafting</span>
