@@ -7,51 +7,32 @@ import styles from "./Hero03.module.css";
 
 export default function Hero03() {
     const containerRef = useRef<HTMLElement>(null);
-    const navRef = useRef<HTMLElement>(null);
+    const logoRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
-    const subtitleRef = useRef<HTMLParagraphElement>(null);
+    const taglineRef = useRef<HTMLParagraphElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
-    const scanlineRef = useRef<HTMLDivElement>(null);
+    const filmStripRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        // Dramatic entrance
-        gsap.set([navRef.current, titleRef.current, subtitleRef.current, ctaRef.current], { autoAlpha: 0 });
+        gsap.set([logoRef.current, titleRef.current, taglineRef.current, ctaRef.current], {
+            autoAlpha: 0,
+            y: 30,
+        });
 
-        tl.from(containerRef.current, { scale: 1.1, duration: 2, ease: "power2.out" })
-            .to(navRef.current, { autoAlpha: 1, y: 0, duration: 1 }, "-=1.5")
-            .to(titleRef.current, { autoAlpha: 1, y: 0, duration: 1.2, ease: "power4.out" }, "-=0.8")
-            .to(subtitleRef.current, { autoAlpha: 1, y: 0, duration: 1 }, "-=0.6")
-            .to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.8 }, "-=0.4");
+        tl.to(logoRef.current, { autoAlpha: 1, y: 0, duration: 1 }, 0.3)
+            .to(titleRef.current, { autoAlpha: 1, y: 0, duration: 1 }, 0.5)
+            .to(taglineRef.current, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.8)
+            .to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.8 }, 1);
 
-        // Scanline animation
-        gsap.to(scanlineRef.current, {
-            y: "100vh",
-            duration: 3,
+        // Film strip animation
+        gsap.to(filmStripRef.current, {
+            x: "-50%",
+            duration: 30,
             repeat: -1,
             ease: "none",
         });
-
-        // Mouse parallax
-        const handleMouseMove = (e: MouseEvent) => {
-            const { clientX, clientY } = e;
-            const x = (clientX / window.innerWidth - 0.5) * 20;
-            const y = (clientY / window.innerHeight - 0.5) * 20;
-
-            const bgEl = containerRef.current?.querySelector(`.${styles.bgImage}`);
-            if (bgEl) {
-                gsap.to(bgEl, {
-                    x: x * 0.5,
-                    y: y * 0.5,
-                    duration: 1.5,
-                    ease: "power2.out",
-                });
-            }
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
     return (
@@ -60,51 +41,92 @@ export default function Hero03() {
             <div className={styles.bgContainer}>
                 <Image
                     src="/screed_bg.png"
-                    alt="Screed Productions"
+                    alt="Cinematic Background"
                     fill
                     className={styles.bgImage}
                     priority
                 />
-                <div className={styles.vignette}></div>
-                <div ref={scanlineRef} className={styles.scanline}></div>
+                <div className={styles.overlay}></div>
             </div>
 
-            {/* Nav */}
-            <nav ref={navRef} className={styles.nav}>
-                <div className={styles.navLeft}>
-                    <span className={styles.brand}>SCREED</span>
+            {/* Film Strip Decoration */}
+            <div className={styles.filmStripContainer}>
+                <div ref={filmStripRef} className={styles.filmStrip}>
+                    {[...Array(20)].map((_, i) => (
+                        <div key={i} className={styles.filmFrame}>
+                            <div className={styles.framePerforation}></div>
+                            <div className={styles.frameContent}></div>
+                            <div className={styles.framePerforation}></div>
+                        </div>
+                    ))}
                 </div>
-                <div className={styles.navRight}>
-                    <a href="#">Films</a>
-                    <a href="#">About</a>
-                    <a href="#" className={styles.navCta}>Contact</a>
-                </div>
-            </nav>
+            </div>
 
-            {/* Content */}
+            {/* Main Content */}
             <div className={styles.content}>
+                {/* Logo / Brand */}
+                <div ref={logoRef} className={styles.logo}>
+                    <div className={styles.logoIcon}>
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="24" cy="24" r="8" fill="currentColor" />
+                            <path d="M24 2V10M24 38V46M2 24H10M38 24H46" stroke="currentColor" strokeWidth="2" />
+                            <path d="M8.5 8.5L14 14M34 34L39.5 39.5M8.5 39.5L14 34M34 14L39.5 8.5" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                    </div>
+                    <span className={styles.logoText}>SCREED</span>
+                </div>
+
+                {/* Title */}
                 <h1 ref={titleRef} className={styles.title}>
-                    <span className={styles.titleLine}>SCREED</span>
-                    <span className={styles.titleSub}>PRODUCTIONS</span>
+                    <span className={styles.titleMain}>FILM PRODUCTIONS</span>
+                    <span className={styles.titleAccent}>& CREATIVE AGENCY</span>
                 </h1>
-                <p ref={subtitleRef} className={styles.subtitle}>
-                    Cinematic storytelling that transcends reality.
+
+                {/* Tagline */}
+                <p ref={taglineRef} className={styles.tagline}>
+                    Award-winning cinematic storytelling. From concept to screen.
                 </p>
+
+                {/* CTA */}
                 <div ref={ctaRef} className={styles.cta}>
                     <button className={styles.primaryBtn}>
-                        <span className={styles.btnGlow}></span>
-                        View Our Work
+                        View Our Films
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
                     </button>
                     <button className={styles.secondaryBtn}>
-                        Behind the Scenes
+                        Contact Us
                     </button>
+                </div>
+
+                {/* Stats / Credentials */}
+                <div className={styles.stats}>
+                    <div className={styles.stat}>
+                        <span className={styles.statValue}>150+</span>
+                        <span className={styles.statLabel}>Films Produced</span>
+                    </div>
+                    <div className={styles.statDivider}></div>
+                    <div className={styles.stat}>
+                        <span className={styles.statValue}>12</span>
+                        <span className={styles.statLabel}>Awards Won</span>
+                    </div>
+                    <div className={styles.statDivider}></div>
+                    <div className={styles.stat}>
+                        <span className={styles.statValue}>2008</span>
+                        <span className={styles.statLabel}>Established</span>
+                    </div>
                 </div>
             </div>
 
-            {/* Decorative Elements */}
-            <div className={styles.cornerTL}></div>
-            <div className={styles.cornerBR}></div>
-            <div className={styles.gridOverlay}></div>
+            {/* Navigation */}
+            <nav className={styles.nav}>
+                <a href="#">Portfolio</a>
+                <a href="#">Services</a>
+                <a href="#">About</a>
+                <a href="#" className={styles.navCta}>Get in Touch</a>
+            </nav>
         </section>
     );
 }
