@@ -28,11 +28,11 @@ const heroes = [
     },
     {
         id: 3,
-        name: "Hero #3",
-        description: "Coming soon — stay tuned for more stunning hero sections.",
+        name: "Screed Productions",
+        description: "Dramatic cinematic movie agency hero with deep red/black theme and epic animations.",
         slug: "hero-03",
-        status: "coming-soon",
-        preview: null,
+        status: "ready",
+        preview: "/screed_bg.png",
     },
     {
         id: 4,

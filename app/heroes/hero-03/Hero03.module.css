@@ -1,0 +1,269 @@
+/* ===== SCREED PRODUCTIONS - HERO 03 ===== */
+/* Dramatic Red/Black Cinematic Theme */
+
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #000;
+}
+
+/* ===== BACKGROUND ===== */
+.bgContainer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.bgImage {
+    object-fit: cover;
+    filter: brightness(0.7) contrast(1.2) saturate(1.3);
+    transition: transform 0.5s ease-out;
+}
+
+.vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.85) 100%);
+    pointer-events: none;
+}
+
+.scanline {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgba(200, 30, 30, 0.4), transparent);
+    box-shadow: 0 0 20px rgba(200, 30, 30, 0.6);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    transform: translateY(-20px);
+}
+
+.navLeft .brand {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.4em;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(200, 30, 30, 0.8);
+}
+
+.navRight {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.navRight a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.navRight a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(200, 30, 30, 0.8);
+}
+
+.navCta {
+    padding: 0.6rem 1.4rem;
+    border: 1px solid rgba(200, 30, 30, 0.6);
+    border-radius: 2px;
+    background: transparent;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.navCta:hover {
+    background: rgba(200, 30, 30, 0.2);
+    border-color: rgba(200, 30, 30, 1);
+}
+
+/* ===== CONTENT ===== */
+.content {
+    position: relative;
+    z-index: 5;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(40px);
+}
+
+.titleLine {
+    font-size: clamp(4rem, 15vw, 12rem);
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: transparent;
+    background: linear-gradient(180deg, #fff 0%, rgba(200, 30, 30, 0.8) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 60px rgba(200, 30, 30, 0.5);
+    line-height: 1;
+}
+
+.titleSub {
+    font-size: clamp(0.8rem, 2vw, 1.4rem);
+    font-weight: 400;
+    letter-spacing: 1em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 1rem;
+}
+
+.subtitle {
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 2rem;
+    max-width: 500px;
+    transform: translateY(20px);
+}
+
+/* ===== CTA BUTTONS ===== */
+.cta {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    transform: translateY(20px);
+}
+
+.primaryBtn {
+    position: relative;
+    padding: 1rem 2.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(200, 30, 30, 0.9), rgba(120, 10, 10, 0.9));
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.primaryBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(200, 30, 30, 0.6);
+}
+
+.btnGlow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+}
+
+.primaryBtn:hover .btnGlow {
+    transform: translateX(100%);
+}
+
+.secondaryBtn {
+    padding: 1rem 2.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.7);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s, background 0.3s;
+}
+
+.secondaryBtn:hover {
+    color: #fff;
+    border-color: rgba(200, 30, 30, 0.6);
+    background: rgba(200, 30, 30, 0.1);
+}
+
+/* ===== DECORATIVE ELEMENTS ===== */
+.cornerTL,
+.cornerBR {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(200, 30, 30, 0.3);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.cornerTL {
+    top: 2rem;
+    left: 2rem;
+    border-right: none;
+    border-bottom: none;
+}
+
+.cornerBR {
+    bottom: 2rem;
+    right: 2rem;
+    border-left: none;
+    border-top: none;
+}
+
+.gridOverlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(200, 30, 30, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 30, 30, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .nav {
+        padding: 1.5rem 2rem;
+    }
+
+    .navRight {
+        gap: 1.5rem;
+    }
+
+    .navRight a:not(.navCta) {
+        display: none;
+    }
+
+    .cta {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .cornerTL,
+    .cornerBR {
+        width: 40px;
+        height: 40px;
+    }
+}
