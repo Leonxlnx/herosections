@@ -7,32 +7,44 @@ import styles from "./Hero03.module.css";
 
 export default function Hero03() {
     const containerRef = useRef<HTMLElement>(null);
-    const logoRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLHeadingElement>(null);
-    const taglineRef = useRef<HTMLParagraphElement>(null);
+    const brandRef = useRef<HTMLDivElement>(null);
+    const headlineRef = useRef<HTMLDivElement>(null);
+    const descRef = useRef<HTMLParagraphElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
-    const filmStripRef = useRef<HTMLDivElement>(null);
+    const decorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.2 } });
 
-        gsap.set([logoRef.current, titleRef.current, taglineRef.current, ctaRef.current], {
+        gsap.set([brandRef.current, headlineRef.current, descRef.current, ctaRef.current], {
             autoAlpha: 0,
-            y: 30,
+            y: 60,
         });
 
-        tl.to(logoRef.current, { autoAlpha: 1, y: 0, duration: 1 }, 0.3)
-            .to(titleRef.current, { autoAlpha: 1, y: 0, duration: 1 }, 0.5)
-            .to(taglineRef.current, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.8)
-            .to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.8 }, 1);
+        gsap.set(decorRef.current, { autoAlpha: 0, scale: 0.8 });
 
-        // Film strip animation
-        gsap.to(filmStripRef.current, {
-            x: "-50%",
-            duration: 30,
-            repeat: -1,
-            ease: "none",
-        });
+        tl.to(decorRef.current, { autoAlpha: 1, scale: 1, duration: 1.5 }, 0)
+            .to(brandRef.current, { autoAlpha: 1, y: 0 }, 0.3)
+            .to(headlineRef.current, { autoAlpha: 1, y: 0, duration: 1.4 }, 0.5)
+            .to(descRef.current, { autoAlpha: 1, y: 0 }, 0.9)
+            .to(ctaRef.current, { autoAlpha: 1, y: 0 }, 1.1);
+
+        // Subtle parallax on mouse
+        const handleMouseMove = (e: MouseEvent) => {
+            const { clientX, clientY } = e;
+            const x = (clientX / window.innerWidth - 0.5) * 15;
+            const y = (clientY / window.innerHeight - 0.5) * 15;
+
+            gsap.to(decorRef.current, {
+                x: x * 2,
+                y: y * 2,
+                duration: 1.5,
+                ease: "power2.out",
+            });
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
     return (
@@ -47,86 +59,68 @@ export default function Hero03() {
                     priority
                 />
                 <div className={styles.overlay}></div>
+                <div className={styles.noiseOverlay}></div>
             </div>
 
-            {/* Film Strip Decoration */}
-            <div className={styles.filmStripContainer}>
-                <div ref={filmStripRef} className={styles.filmStrip}>
-                    {[...Array(20)].map((_, i) => (
-                        <div key={i} className={styles.filmFrame}>
-                            <div className={styles.framePerforation}></div>
-                            <div className={styles.frameContent}></div>
-                            <div className={styles.framePerforation}></div>
-                        </div>
-                    ))}
-                </div>
+            {/* Decorative Ring */}
+            <div ref={decorRef} className={styles.decorRing}>
+                <div className={styles.ringOuter}></div>
+                <div className={styles.ringInner}></div>
+                <div className={styles.ringCore}></div>
             </div>
 
             {/* Main Content */}
             <div className={styles.content}>
-                {/* Logo / Brand */}
-                <div ref={logoRef} className={styles.logo}>
-                    <div className={styles.logoIcon}>
-                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="2" />
-                            <circle cx="24" cy="24" r="8" fill="currentColor" />
-                            <path d="M24 2V10M24 38V46M2 24H10M38 24H46" stroke="currentColor" strokeWidth="2" />
-                            <path d="M8.5 8.5L14 14M34 34L39.5 39.5M8.5 39.5L14 34M34 14L39.5 8.5" stroke="currentColor" strokeWidth="2" />
-                        </svg>
-                    </div>
-                    <span className={styles.logoText}>SCREED</span>
+                {/* Brand */}
+                <div ref={brandRef} className={styles.brand}>
+                    <div className={styles.brandLine}></div>
+                    <span className={styles.brandText}>SCREED STUDIOS</span>
+                    <div className={styles.brandLine}></div>
                 </div>
 
-                {/* Title */}
-                <h1 ref={titleRef} className={styles.title}>
-                    <span className={styles.titleMain}>FILM PRODUCTIONS</span>
-                    <span className={styles.titleAccent}>& CREATIVE AGENCY</span>
-                </h1>
+                {/* Headline */}
+                <div ref={headlineRef} className={styles.headline}>
+                    <h1 className={styles.headlineMain}>
+                        <span className={styles.headlineWord}>Cinematic</span>
+                        <span className={styles.headlineWord}>Excellence</span>
+                    </h1>
+                    <p className={styles.headlineSub}>Film Production & Creative Direction</p>
+                </div>
 
-                {/* Tagline */}
-                <p ref={taglineRef} className={styles.tagline}>
-                    Award-winning cinematic storytelling. From concept to screen.
+                {/* Description */}
+                <p ref={descRef} className={styles.description}>
+                    We craft award-winning films and visual experiences that captivate audiences worldwide. From concept to premiere.
                 </p>
 
                 {/* CTA */}
                 <div ref={ctaRef} className={styles.cta}>
                     <button className={styles.primaryBtn}>
-                        View Our Films
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polygon points="5,3 19,12 5,21" />
-                        </svg>
+                        <span className={styles.btnText}>Explore Our Work</span>
+                        <span className={styles.btnIcon}>→</span>
                     </button>
                     <button className={styles.secondaryBtn}>
-                        Contact Us
+                        Contact
                     </button>
-                </div>
-
-                {/* Stats / Credentials */}
-                <div className={styles.stats}>
-                    <div className={styles.stat}>
-                        <span className={styles.statValue}>150+</span>
-                        <span className={styles.statLabel}>Films Produced</span>
-                    </div>
-                    <div className={styles.statDivider}></div>
-                    <div className={styles.stat}>
-                        <span className={styles.statValue}>12</span>
-                        <span className={styles.statLabel}>Awards Won</span>
-                    </div>
-                    <div className={styles.statDivider}></div>
-                    <div className={styles.stat}>
-                        <span className={styles.statValue}>2008</span>
-                        <span className={styles.statLabel}>Established</span>
-                    </div>
                 </div>
             </div>
 
-            {/* Navigation */}
-            <nav className={styles.nav}>
+            {/* Corner Elements */}
+            <div className={styles.cornerTL}>
+                <span>EST. 2008</span>
+            </div>
+            <div className={styles.cornerTR}>
                 <a href="#">Portfolio</a>
-                <a href="#">Services</a>
                 <a href="#">About</a>
-                <a href="#" className={styles.navCta}>Get in Touch</a>
-            </nav>
+            </div>
+            <div className={styles.cornerBL}>
+                <span>150+ Films</span>
+                <span className={styles.divider}>•</span>
+                <span>12 Awards</span>
+            </div>
+            <div className={styles.cornerBR}>
+                <span>Scroll</span>
+                <div className={styles.scrollIndicator}></div>
+            </div>
         </section>
     );
 }
